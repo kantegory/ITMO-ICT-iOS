@@ -1,6 +1,6 @@
 // TODO:
 
-// 1. Придумайте архитектуру для подсказок поисковой строки. 
+// [+] 1. Придумайте архитектуру для подсказок поисковой строки. 
 // Подсказки бывают с текстом, ссылкой, картинкой и 
 // сочетанием нескольких вариантов. У каждой подсказки должен быть id.
 
@@ -13,7 +13,7 @@
 //   6) Картинка + ссылка
 //   7) Текст + картинка + ссылка
 
-// 2. Сделайте протоколы для всех видов подсказок и их сочетаний.
+// [+] 2. Сделайте протоколы для всех видов подсказок и их сочетаний.
 
 // 3. Сделайте протокол класса, выдающего подсказки. 
 // Подразумевается, что на любую строку есть хотя бы одна подсказка. 
@@ -24,7 +24,7 @@
 
 // 5. Реализуйте по объекту на каждый протокол
 
-// 6.Реализуйте класс, выдающий подсказки и продемонстрируйте его функционал.
+// 6. Реализуйте класс, выдающий подсказки и продемонстрируйте его функционал.
 
 protocol TextHintProto {
     var textField: String { get set }
@@ -38,16 +38,29 @@ protocol LinkHintProto {
     var linkField: String { get set }
 }
 
-struct Hint: TextHintProto, ImageHintProto, LinkHintProto {
+protocol TextWithImageHintProto: TextHintProto, ImageHintProto {}
+
+protocol TextWithLinkHintProto: TextHintProto, LinkHintProto {}
+
+protocol ImageWithLinkHintProto: ImageHintProto, LinkHintProto {}
+
+protocol TextWithImageAndLinkHintProto: TextHintProto, ImageHintProto, LinkHintProto {}
+
+struct Hint: TextWithImageHintProto {
     var textField: String
     var imageField: String
-    var linkField: String
 }
+
+// struct Hint: TextHintProto, ImageHintProto, LinkHintProto {
+//     var textField: String
+//     var imageField: String
+//     var linkField: String
+// }
 
 var hint: Hint = Hint(
     textField: "Привет",
-    imageField: "https://placekitten.com/250",
-    linkField: "https://github.com/kantegory"
+    imageField: "https://placekitten.com/250"
+    // linkField: "https://github.com/kantegory"
 )
 
 print(hint)
