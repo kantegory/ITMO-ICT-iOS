@@ -22,7 +22,7 @@
 
 // [+] 4. Сделайте расширение на любой протокол.
 
-// 5. Реализуйте по объекту на каждый протокол
+// [+] 5. Реализуйте по объекту на каждый протокол
 
 // 6. Реализуйте класс, выдающий подсказки и продемонстрируйте его функционал.
 
@@ -137,6 +137,46 @@ class TextWithImageAndLinkHint: TextWithImageAndLinkHintProto {
 
 // теперь, когда все классы для всех прототипов реализованы
 // можно наконец-то создать по объекту
+var linkHint: LinkHint = LinkHint(linkField: "online.swiftplayground.run")
+print(linkHint)
+
+var textHint: TextHint = TextHint(textField: "This is a text field hint")
+print(textHint)
+
+var imageHint: ImageHint = ImageHint(imageField: "https://placekitten.com/250")
+print(imageHint)
+
+var textWithLinkHint: TextWithLinkHint = TextWithLinkHint(
+    textField: "oh this is a text for a link below",
+    linkField: "online.swiftplayground.run"
+)
+
+print(textWithLinkHint)
+
+var textWithImageHint: TextWithImageHint = TextWithImageHint(
+    textField: "oh, here is the kitten 250x250...",
+    imageField: "https://placekitten.com/250"
+)
+
+print(textWithImageHint)
+
+var imageWithLinkHint: ImageWithLinkHint = ImageWithLinkHint(
+    imageField: "https://placekitten.com/250",
+    linkField: "online.swiftplayground.run"
+)
+
+print(imageWithLinkHint)
+
+var textWithImageAndLinkHint: TextWithImageAndLinkHint = TextWithImageAndLinkHint(
+    textField: "All the fields there",
+    imageField: "https://placekitten.com/250",
+    linkField: "online.swiftplayground.run"
+)
+
+print(textWithImageAndLinkHint)
+
+// var imageHint: ImageHint = ImageHint(imageField: "https://placekitten.com/250")
+// print(imageHint)
 
 // структура для проверки отрабатывания протокола
 struct HintStruct: TextWithImageHintProto {
