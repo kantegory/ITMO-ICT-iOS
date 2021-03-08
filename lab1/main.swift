@@ -70,7 +70,73 @@ extension LinkHint {
 
 var link: LinkHint = LinkHint(linkField: "online.swiftplayground.run")
 
-print(link.formattedLinkField)
+// print(link.formattedLinkField)
+
+// реализуем по объекту на каждый протокол,
+// для этого нам надо либо создать по классу
+// на каждый протокол, либо по структуре
+// но поскольку мы уже делали класс для
+// LinkHint - будем делать по классу
+class TextHint: TextHintProto {
+    var textField: String
+
+    init(textField: String) {
+        self.textField = textField
+    }
+}
+
+class ImageHint: ImageHintProto {
+    var imageField: String
+
+    init(imageField: String) {
+        self.imageField = imageField
+    }
+}
+
+class TextWithImageHint: TextWithImageHintProto {
+    var textField: String
+    var imageField: String
+
+    init(textField: String, imageField: String) {
+        self.textField = textField
+        self.imageField = imageField
+    }
+}
+
+class TextWithLinkHint: TextWithLinkHintProto {
+    var textField: String
+    var linkField: String
+
+    init(textField: String, linkField: String) {
+        self.textField = textField
+        self.linkField = linkField
+    }
+}
+
+class ImageWithLinkHint: ImageWithLinkHintProto {
+    var imageField: String
+    var linkField: String
+
+    init(imageField: String, linkField: String) {
+        self.imageField = imageField
+        self.linkField = linkField
+    }
+}
+
+class TextWithImageAndLinkHint: TextWithImageAndLinkHintProto {
+    var textField: String
+    var imageField: String
+    var linkField: String
+
+    init(textField: String, imageField: String, linkField: String) {
+        self.textField = textField
+        self.imageField = imageField
+        self.linkField = linkField
+    }
+}
+
+// теперь, когда все классы для всех прототипов реализованы
+// можно наконец-то создать по объекту
 
 // структура для проверки отрабатывания протокола
 struct HintStruct: TextWithImageHintProto {
@@ -84,5 +150,5 @@ var hint: HintStruct = HintStruct(
     // linkField: "https://github.com/kantegory"
 )
 
-print(hint)
+// print(hint)
 
