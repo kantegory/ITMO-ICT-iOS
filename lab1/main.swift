@@ -15,12 +15,12 @@
 
 // [+] 2. Сделайте протоколы для всех видов подсказок и их сочетаний.
 
-// 3. Сделайте протокол класса, выдающего подсказки. 
+// [+] 3. Сделайте протокол класса, выдающего подсказки. 
 // Подразумевается, что на любую строку есть хотя бы одна подсказка. 
 // Он должен инициализироваться от строки (строка -- константа), 
 // подбирать подсказки, возвращать количество подсказок и любую из подсказок.
 
-// 4. Сделайте расширение на любой протокол.
+// [+] 4. Сделайте расширение на любой протокол.
 
 // 5. Реализуйте по объекту на каждый протокол
 
@@ -46,21 +46,43 @@ protocol ImageWithLinkHintProto: ImageHintProto, LinkHintProto {}
 
 protocol TextWithImageAndLinkHintProto: TextHintProto, ImageHintProto, LinkHintProto {}
 
-struct Hint: TextWithImageHintProto {
+// протокол класса, выдающего подсказки
+protocol HintProto {
+    init(searchField: String)
+
+    func getHint()
+}
+
+// расширение для класса LinkHintProto
+class LinkHint: LinkHintProto {
+    var linkField: String
+
+    init(linkField: String) {
+        self.linkField = linkField
+    }
+}
+
+extension LinkHint {
+    var formattedLinkField: String {
+        return "https://\(linkField)"
+    }    
+}
+
+var link: LinkHint = LinkHint(linkField: "online.swiftplayground.run")
+
+print(link.formattedLinkField)
+
+// структура для проверки отрабатывания протокола
+struct HintStruct: TextWithImageHintProto {
     var textField: String
     var imageField: String
 }
 
-// struct Hint: TextHintProto, ImageHintProto, LinkHintProto {
-//     var textField: String
-//     var imageField: String
-//     var linkField: String
-// }
-
-var hint: Hint = Hint(
+var hint: HintStruct = HintStruct(
     textField: "Привет",
     imageField: "https://placekitten.com/250"
     // linkField: "https://github.com/kantegory"
 )
 
 print(hint)
+
