@@ -25,7 +25,7 @@ import Foundation
 
 // [+] 5. Реализуйте по объекту на каждый протокол
 
-// 6. Реализуйте класс, выдающий подсказки и продемонстрируйте его функционал.
+// [+] 6. Реализуйте класс, выдающий подсказки и продемонстрируйте его функционал.
 
 protocol TextHintProto {
     var textField: String { get set }
@@ -119,8 +119,6 @@ class TextHint: TextHintProto, PropertyLoopable {
     }
 }
 
-print(try TextHint(textField: "text").allProperties(searchField: "text"))
-
 class ImageHint: ImageHintProto, PropertyLoopable {
     var imageField: String
 
@@ -179,15 +177,11 @@ var linkHint: TextWithImageAndLinkHint = TextWithImageAndLinkHint(
     linkField: "online.swiftplayground.run"
 )
 
-// print(linkHint)
-
 var textHint: TextWithImageAndLinkHint = TextWithImageAndLinkHint(
     textField: "This is a text field hint",
     imageField: "",
     linkField: ""
 )
-
-// print(textHint)
 
 var imageHint: TextWithImageAndLinkHint = TextWithImageAndLinkHint(
     textField: "",
@@ -195,15 +189,11 @@ var imageHint: TextWithImageAndLinkHint = TextWithImageAndLinkHint(
     linkField: ""
 )
 
-// print(imageHint)
-
 var textWithLinkHint: TextWithImageAndLinkHint = TextWithImageAndLinkHint(
     textField: "oh this is a text for a link below",
     imageField: "",
     linkField: "online.swiftplayground.run"
 )
-
-// print(textWithLinkHint)
 
 var textWithImageHint: TextWithImageAndLinkHint = TextWithImageAndLinkHint(
     textField: "oh, here is the kitten 250x250...",
@@ -211,23 +201,17 @@ var textWithImageHint: TextWithImageAndLinkHint = TextWithImageAndLinkHint(
     linkField: ""
 )
 
-//print(textWithImageHint)
-
 var imageWithLinkHint: TextWithImageAndLinkHint = TextWithImageAndLinkHint(
     textField: "",
     imageField: "https://placekitten.com/250",
     linkField: "online.swiftplayground.run"
 )
 
-//print(imageWithLinkHint)
-
 var textWithImageAndLinkHint: TextWithImageAndLinkHint = TextWithImageAndLinkHint(
     textField: "All the fields there",
     imageField: "https://placekitten.com/250",
     linkField: "online.swiftplayground.run"
 )
-
-//print(textWithImageAndLinkHint)
 
 // протокол класса, выдающего подсказки
 protocol HintProto {
@@ -281,20 +265,3 @@ let hints = [
 let hinter: Hint = Hint(searchField: "oh", hints: hints)
 
 print(hinter.getHint())
-
-// var imageHint: ImageHint = ImageHint(imageField: "https://placekitten.com/250")
-// print(imageHint)
-
-// структура для проверки отрабатывания протокола
-struct HintStruct: TextWithImageHintProto {
-    var textField: String
-    var imageField: String
-}
-
-var hint: HintStruct = HintStruct(
-    textField: "Привет",
-    imageField: "https://placekitten.com/250"
-    // linkField: "https://github.com/kantegory"
-)
-
-// print(hint)
