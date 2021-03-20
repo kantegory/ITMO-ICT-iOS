@@ -26,45 +26,50 @@ import Foundation
 // [+] 5. Реализуйте по объекту на каждый протокол
 
 // [+] 6. Реализуйте класс, выдающий подсказки и продемонстрируйте его функционал.
+protocol Hint {
+    var id: Int { get }
+}
 
-protocol TextHintProto {
+protocol TextHint: Hint {
     var textField: String { get set }
 }
 
-protocol ImageHintProto {
+protocol ImageHint: Hint {
     var imageField: String { get set }
 }
 
-protocol LinkHintProto {
+protocol LinkHint: Hint {
     var linkField: String { get set }
 }
 
-protocol TextWithImageHintProto: TextHintProto, ImageHintProto {}
+protocol TextWithImageHint: TextHint, ImageHint {}
 
-protocol TextWithLinkHintProto: TextHintProto, LinkHintProto {}
+protocol TextWithLinkHint: TextHint, LinkHint {}
 
-protocol ImageWithLinkHintProto: ImageHintProto, LinkHintProto {}
+protocol ImageWithLinkHint: ImageHint, LinkHint {}
 
-protocol TextWithImageAndLinkHintProto: TextHintProto, ImageHintProto, LinkHintProto {}
+protocol TextWithImageAndLinkHint: TextHint, ImageHint, LinkHint {}
 
-// расширение для класса LinkHintProto
-class LinkHint: LinkHintProto {
+// расширение для класса LinkHint
+class LinkHintImpl: LinkHint {
+    var id: Int
     var linkField: String
 
-    init(linkField: String) {
+    init(id: Int, linkField: String) {
+        self.id = id
         self.linkField = linkField
     }
 }
 
-extension LinkHint {
+extension LinkHintImpl {
     var formattedLinkField: String {
         return "https://\(linkField)"
     }    
 }
 
-var link: LinkHint = LinkHint(linkField: "online.swiftplayground.run")
+var link: LinkHintImpl = LinkHintImpl(id: 1, linkField: "online.swiftplayground.run")
 
-// print(link.formattedLinkField)
+print(link.formattedLinkField)
 
 // реализуем по объекту на каждый протокол,
 // для этого нам надо либо создать по классу
@@ -90,6 +95,10 @@ extension PropertyLoopable
                 continue
             }
 
+            if label == "id" {
+                continue
+            }
+
             let val = valueMaybe as! String
 
             if val.contains(searchField) {
@@ -111,58 +120,70 @@ extension PropertyLoopable
     }
 }
 
-class TextHint: TextHintProto, PropertyLoopable {
+class TextHintImpl: TextHint, PropertyLoopable {
+    var id: Int
     var textField: String
 
-    init(textField: String) {
+    init(id: Int, textField: String) {
+        self.id = id
         self.textField = textField
     }
 }
 
-class ImageHint: ImageHintProto, PropertyLoopable {
+class ImageHintImpl: ImageHint, PropertyLoopable {
+    var id: Int
     var imageField: String
 
-    init(imageField: String) {
+    init(id: Int, imageField: String) {
+        self.id = id
         self.imageField = imageField
     }
 }
 
-class TextWithImageHint: TextWithImageHintProto, PropertyLoopable {
+class TextWithImageHintImpl: TextWithImageHint, PropertyLoopable {
+    var id: Int
     var textField: String
     var imageField: String
 
-    init(textField: String, imageField: String) {
+    init(id: Int, textField: String, imageField: String) {
+        self.id = id
         self.textField = textField
         self.imageField = imageField
     }
 }
 
-class TextWithLinkHint: TextWithLinkHintProto, PropertyLoopable {
+class TextWithLinkHintImpl: TextWithLinkHint, PropertyLoopable {
+    var id: Int
     var textField: String
     var linkField: String
 
-    init(textField: String, linkField: String) {
+    init(id: Int, textField: String, linkField: String) {
+        self.id = id
         self.textField = textField
         self.linkField = linkField
     }
 }
 
-class ImageWithLinkHint: ImageWithLinkHintProto, PropertyLoopable {
+class ImageWithLinkHintImpl: ImageWithLinkHint, PropertyLoopable {
+    var id: Int
     var imageField: String
     var linkField: String
 
-    init(imageField: String, linkField: String) {
+    init(id: Int, imageField: String, linkField: String) {
+        self.id = id
         self.imageField = imageField
         self.linkField = linkField
     }
 }
 
-class TextWithImageAndLinkHint: TextWithImageAndLinkHintProto, PropertyLoopable {
+class TextWithImageAndLinkHintImpl: TextWithImageAndLinkHint, PropertyLoopable {
+    var id: Int
     var textField: String
     var imageField: String
     var linkField: String
 
-    init(textField: String, imageField: String, linkField: String) {
+    init(id: Int, textField: String, imageField: String, linkField: String) {
+        self.id = id
         self.textField = textField
         self.imageField = imageField
         self.linkField = linkField
@@ -171,61 +192,68 @@ class TextWithImageAndLinkHint: TextWithImageAndLinkHintProto, PropertyLoopable 
 
 // теперь, когда все классы для всех прототипов реализованы
 // можно наконец-то создать по объекту
-var linkHint: TextWithImageAndLinkHint = TextWithImageAndLinkHint(
+var linkHint: TextWithImageAndLinkHintImpl = TextWithImageAndLinkHintImpl(
+    id: 1,
     textField: "",
     imageField: "",
     linkField: "online.swiftplayground.run"
 )
 
-var textHint: TextWithImageAndLinkHint = TextWithImageAndLinkHint(
+var textHint: TextWithImageAndLinkHintImpl = TextWithImageAndLinkHintImpl(
+    id: 2,
     textField: "This is a text field hint",
     imageField: "",
     linkField: ""
 )
 
-var imageHint: TextWithImageAndLinkHint = TextWithImageAndLinkHint(
+var imageHint: TextWithImageAndLinkHintImpl = TextWithImageAndLinkHintImpl(
+    id: 3,
     textField: "",
     imageField: "https://placekitten.com/250",
     linkField: ""
 )
 
-var textWithLinkHint: TextWithImageAndLinkHint = TextWithImageAndLinkHint(
+var textWithLinkHint: TextWithImageAndLinkHintImpl = TextWithImageAndLinkHintImpl(
+    id: 4,
     textField: "oh this is a text for a link below",
     imageField: "",
     linkField: "online.swiftplayground.run"
 )
 
-var textWithImageHint: TextWithImageAndLinkHint = TextWithImageAndLinkHint(
+var textWithImageHint: TextWithImageAndLinkHintImpl = TextWithImageAndLinkHintImpl(
+    id: 5,
     textField: "oh, here is the kitten 250x250...",
     imageField: "https://placekitten.com/250",
     linkField: ""
 )
 
-var imageWithLinkHint: TextWithImageAndLinkHint = TextWithImageAndLinkHint(
+var imageWithLinkHint: TextWithImageAndLinkHintImpl = TextWithImageAndLinkHintImpl(
+    id: 6,
     textField: "",
     imageField: "https://placekitten.com/250",
     linkField: "online.swiftplayground.run"
 )
 
-var textWithImageAndLinkHint: TextWithImageAndLinkHint = TextWithImageAndLinkHint(
+var textWithImageAndLinkHint: TextWithImageAndLinkHintImpl = TextWithImageAndLinkHintImpl(
+    id: 7,
     textField: "All the fields there",
     imageField: "https://placekitten.com/250",
     linkField: "online.swiftplayground.run"
 )
 
 // протокол класса, выдающего подсказки
-protocol HintProto {
-    init(searchField: String, hints: [TextWithImageAndLinkHint])
+protocol HintGetter {
+    init(searchField: String, hints: [TextWithImageAndLinkHintImpl])
 
     func getHint() -> [String: Any]
 }
 
 // реализуем класс для выдачи подсказок
-class Hint: HintProto {
+class HintGetterImpl: HintGetter {
     let searchField: String
-    let hints: [TextWithImageAndLinkHint]
+    let hints: [TextWithImageAndLinkHintImpl]
 
-    required init(searchField: String, hints: [TextWithImageAndLinkHint]) {
+    required init(searchField: String, hints: [TextWithImageAndLinkHintImpl]) {
         self.searchField = searchField
         self.hints = hints
     }
@@ -262,6 +290,6 @@ let hints = [
     textWithImageAndLinkHint
 ]
 
-let hinter: Hint = Hint(searchField: "oh", hints: hints)
+let hinter: HintGetterImpl = HintGetterImpl(searchField: "oh", hints: hints)
 
 print(hinter.getHint())
