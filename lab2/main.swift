@@ -69,3 +69,25 @@ print(i)
 inc(&i)
 
 print(i)
+
+// Задание 6 (бонус)
+func creativeNumbers(_ numbers: Int?...) -> (Int, Int, Int?) {
+    var notNilCount = 0
+    var nilCount = 0
+    var sum = 0
+    
+    for number in numbers {
+        if number != nil {
+            notNilCount += 1
+            sum += number!
+        } else {
+            nilCount += 1
+        }
+    }
+
+    return (notNilCount, sum, nilCount)
+}
+
+let creativeResult = creativeNumbers(nil, 1, 2, 3, 4, nil)
+
+print(creativeResult)
