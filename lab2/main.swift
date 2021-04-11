@@ -56,3 +56,16 @@ func modulo(_ firstInt: Int?, _ secondInt: Int?) -> (Int)? {
 }
  
 print(modulo(10, 3))
+
+// Задание 5
+func inc(_ num: inout Int) {
+    num += 1
+}
+
+var i = 1
+
+print(i)
+
+inc(&i)
+
+print(i)
